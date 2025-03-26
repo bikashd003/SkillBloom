@@ -8,6 +8,7 @@ import {
   isRouteErrorResponse,
 } from "@remix-run/react";
 import type { LinksFunction, MetaFunction } from "@remix-run/node";
+import { useEffect, useState } from "react";
 
 import "./tailwind.css";
 
@@ -41,6 +42,12 @@ function Document({
   children: React.ReactNode;
   title?: string;
 }) {
+  const [isHydrated, setIsHydrated] = useState(false);
+
+  useEffect(() => {
+    setIsHydrated(true);
+  }, []);
+
   return (
     <html lang="en" className="h-full" suppressHydrationWarning>
       <head>
@@ -51,7 +58,13 @@ function Document({
         <Links />
       </head>
       <body className="h-full">
-        <div id="root">{children}</div>
+        <div id="root">
+          {isHydrated ? children : (
+            <div className="min-h-screen bg-[#1C1C25] flex items-center justify-center">
+              <div className="animate-spin rounded-full h-16 w-16 border-t-2 border-b-2 border-[#9AE362]"></div>
+            </div>
+          )}
+        </div>
         <ScrollRestoration />
         <Scripts />
       </body>
@@ -67,82 +80,66 @@ export default function App() {
   );
 }
 
-// Error Boundary
+function ErrorComponent({ status, title, message }: { status: string; title: string; message: string }) {
+  return (
+    <div className="min-h-screen bg-[#1C1C25] flex items-center justify-center px-4">
+      <div className="text-center">
+        <div>
+          <h1 className="text-9xl font-bold text-[#9AE362]">{status}</h1>
+          <h2 className="text-4xl font-bold text-white mt-8 mb-4">{title}</h2>
+          <p className="text-gray-400 mb-8 max-w-md mx-auto">
+            {message}
+          </p>
+          <a
+            href="/"
+            className="inline-flex items-center gap-2 bg-gradient-to-r from-[#9AE362] to-[#8ACF57] 
+                     text-black px-6 py-3 rounded-xl hover:opacity-90 transition-opacity"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              className="w-5 h-5"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            >
+              <path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
+              <polyline points="9 22 9 12 15 12 15 22" />
+            </svg>
+            Back to Home
+          </a>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 export function ErrorBoundary() {
   const error = useRouteError();
 
   if (isRouteErrorResponse(error)) {
     return (
       <Document title="Not Found">
-        <div className="min-h-screen bg-[#1C1C25] flex items-center justify-center px-4">
-          <div className="text-center">
-            <div>
-              <h1 className="text-9xl font-bold text-[#9AE362]">404</h1>
-              <h2 className="text-4xl font-bold text-white mt-8 mb-4">Page Not Found</h2>
-              <p className="text-gray-400 mb-8 max-w-md mx-auto">
-                The page you are looking for might have been removed, had its name changed, or is temporarily unavailable.
-              </p>
-              <a
-                href="/"
-                className="inline-flex items-center gap-2 bg-gradient-to-r from-[#9AE362] to-[#8ACF57] 
-                         text-black px-6 py-3 rounded-xl hover:opacity-90 transition-opacity"
-              >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  className="w-5 h-5"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                >
-                  <path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
-                  <polyline points="9 22 9 12 15 12 15 22" />
-                </svg>
-                Back to Home
-              </a>
-            </div>
-          </div>
-        </div>
+        <ErrorComponent
+          status="404"
+          title="Page Not Found"
+          message="The page you are looking for might have been removed, had its name changed, or is temporarily unavailable."
+        />
       </Document>
     );
   }
 
   return (
     <Document title="Error!">
-      <div className="min-h-screen bg-[#1C1C25] flex items-center justify-center px-4">
-        <div className="text-center">
-          <div>
-            <h1 className="text-9xl font-bold text-[#9AE362]">500</h1>
-            <h2 className="text-4xl font-bold text-white mt-8 mb-4">Something went wrong</h2>
-            <p className="text-gray-400 mb-8 max-w-md mx-auto">
-              An unexpected error occurred. Please try again later.
-            </p>
-            <a
-              href="/"
-              className="inline-flex items-center gap-2 bg-gradient-to-r from-[#9AE362] to-[#8ACF57] 
-                       text-black px-6 py-3 rounded-xl hover:opacity-90 transition-opacity"
-            >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                className="w-5 h-5"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              >
-                <path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
-                <polyline points="9 22 9 12 15 12 15 22" />
-              </svg>
-              Back to Home
-            </a>
-          </div>
-        </div>
-      </div>
+      <ErrorComponent
+        status="500"
+        title="Something went wrong"
+        message="An unexpected error occurred. Please try again later."
+      />
     </Document>
   );
 }
+
 
