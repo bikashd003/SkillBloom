@@ -51,7 +51,7 @@ export default function Navbar({ scrollY, isMenuOpen, setIsMenuOpen }: NavbarPro
           >
             <div className="h-10 w-10 rounded-full bg-gradient-to-r from-[#9AE362] to-[#8ACF57]" />
             <span className="bg-clip-text text-transparent bg-gradient-to-r from-white to-gray-300">
-              Dev.
+              SkillBloom.
             </span>
           </motion.span>
         </Link>

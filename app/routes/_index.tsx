@@ -2,6 +2,10 @@ import type { MetaFunction } from "@remix-run/node";
 import { useEffect, useState } from "react";
 import Navbar from "~/components/home/Navbar";
 import HeroSection from "~/components/home/HeroSection";
+import FeaturesSection from "~/components/home/FeaturesSection";
+import CoursesSection from "~/components/home/CoursesSection";
+import ContactSection from "~/components/home/ContactSection";
+import Footer from "~/components/common/Footer";
 
 export const meta: MetaFunction = () => {
   return [
@@ -25,10 +29,16 @@ export default function Index() {
       <Navbar
         scrollY={scrollY}
         isMenuOpen={isMenuOpen}
-        setIsMenuOpen={setIsMenuOpen}
+        setIsMenuOpen={setIsMenuOpen} 
       />
       <HeroSection />
+      <FeaturesSection />
+      <CoursesSection />
+      <ContactSection />
+      <Footer />
     </div>
   );
 }
+
+
 
