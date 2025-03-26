@@ -51,13 +51,13 @@ export default function Navbar({ scrollY, isMenuOpen, setIsMenuOpen }: NavbarPro
           >
             <div className="h-10 w-10 rounded-full bg-gradient-to-r from-[#9AE362] to-[#8ACF57]" />
             <span className="bg-clip-text text-transparent bg-gradient-to-r from-white to-gray-300">
-              SkillBloom.
+              Dev.
             </span>
           </motion.span>
         </Link>
 
         <div className="hidden md:flex items-center gap-8">
-          {["Home", "About Us", "Courses", "Contact"].map((item, index) => (
+          {["Home", "About Us", "Courses"].map((item, index) => (
             <motion.div
               key={item}
               initial={{ opacity: 0, y: -20 }}

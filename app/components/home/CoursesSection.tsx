@@ -11,7 +11,7 @@ const courses = [
     rating: 4.9,
     students: 1200,
     duration: "12 weeks",
-    price: "$99"
+    price: "₹999"
   },
   {
     title: "Python Mastery",
@@ -19,7 +19,7 @@ const courses = [
     rating: 4.8,
     students: 980,
     duration: "10 weeks",
-    price: "$89"
+    price: "₹899"
   },
   {
     title: "UI/UX Design",
@@ -27,7 +27,7 @@ const courses = [
     rating: 4.7,
     students: 750,
     duration: "8 weeks",
-    price: "$79"
+    price: "₹799"
   }
 ];
 

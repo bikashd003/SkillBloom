@@ -78,11 +78,11 @@ export default function Footer() {
               </li>
               <li className="flex items-center gap-2 text-gray-400">
                 <Phone className="w-5 h-5 text-[#9AE362]" />
-                +1 (555) 123-4567
+                +91 1234567890
               </li>
               <li className="flex items-center gap-2 text-gray-400">
                 <MapPin className="w-5 h-5 text-[#9AE362]" />
-                123 Tech Street, CA 94105
+                123 Tech Street, WB 700001
               </li>
             </ul>
           </div>
