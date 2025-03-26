@@ -62,18 +62,9 @@ skillbloom/
 │   ├── components/     # Reusable UI components
 │   ├── routes/         # Application routes
 │   ├── styles/         # Global styles
-│   └── utils/          # Helper functions
+│   └── src/          # Source files
 ├── public/            # Static assets
 └── build/            # Production build files
-```
-
-## 🧪 Quality Assurance
-
-Run the following commands to ensure code quality:
-
-```bash
-npm run typecheck    # Type checking
-npm run lint        # Code linting
 ```
 
 ## 📦 Deployment
@@ -101,7 +92,6 @@ This project uses Tailwind CSS for styling. The configuration can be found in:
 ## 📄 License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
 
 ---
 
